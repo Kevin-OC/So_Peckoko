@@ -2,9 +2,11 @@ const Sauce = require('../models/sauceSchema'); // <- import du schéma de donn�
 
 // sauvegarde d'une sauce via la méthode 'save()'
 exports.createSauce = (req, res, next) => {
-    delete req.body._id; // <- suppression de l'élément '_id' qui a été générée automatiquement par la mongoDB
+    const sauceObject = JSON.parse(req.body.sauce);
+    delete sauceObject._id; // <- suppression de l'élément '_id' qui a été générée automatiquement par la mongoDB
     const sauce = new Sauce({ // <- l'objet 'sauce' est une instance du schéma de données 'Sauce' 
-        ...req.body // <- raccourci pour copier toutes les éléments de l'objet 'req.body'
+        ...sauceObject, // <- raccourci pour copier toutes les éléments de 'sauceObject'
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     });
     sauce.save() // <- sauvegarde de notre objet dans la base de donnée
         .then(() => res.status(201).json({ message: 'Sauce enregistrée !'})) // <- nous allons renvoyer une réponse pour éviter une expiration de requête en passant le statut '201'

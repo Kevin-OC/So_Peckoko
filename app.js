@@ -5,6 +5,7 @@ const mongoose = require('mongoose'); // <- import de 'mongoose' pour communique
 const bodyParser = require('body-parser'); // <- import de 'body-parser'
 const saucesRoutes = require('./routes/sauces'); // <- import de notre logique de routage pour les sauces
 const userRoutes = require('./routes/user'); // <- import de notre logique de routage pour les user
+const path = require('path');
 
 // connection de mongoose avec MongoDB Atlas (et message en console pour vérifier si la connection s'est bien effectuée)
 mongoose.connect('mongodb+srv://Kevin:Mongodb18@realmcluster.wpjgk.mongodb.net/projet6DataBase?retryWrites=true&w=majority', 
@@ -26,6 +27,7 @@ app.use((req, res, next) => {
 // on va utiliser bodyParser (attention déprécié! <- vu que c'est ce qui est sur le cours on va utiliser cette méthode en attendant)
 app.use(bodyParser.json());
 
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/sauces', saucesRoutes); // <- toutes les requêtes comprenant dans l'url 'api/sauces' déclenchent 'saucesRoutes' qui contient la logique de routage pour les sauces
 app.use('/api/auth', userRoutes); // <- toutes les requêtes comprenant dans l'url 'api/auth' déclenchent 'userRoutes' qui contient la logique de routage pour les user
 
