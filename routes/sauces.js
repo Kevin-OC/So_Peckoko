@@ -5,7 +5,7 @@ const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config');
  
 router.post('/', auth, multer, saucesCtrl.createSauce); // <- le premier argument est la requête, le deuxième est la fonction à appliquer (qui se trouve dans '../controllers/sauces')
-router.put('/:id', auth, saucesCtrl.modifySauce); // <- les ':' indiquent que cette requête est dynamique
+router.put('/:id', auth, multer, saucesCtrl.modifySauce); // <- les ':' indiquent que cette requête est dynamique
 router.delete('/:id', auth, saucesCtrl.deleteSauce);
 router.get('/:id', auth, saucesCtrl.getOneSauce);
 router.get('/', auth, saucesCtrl.getAllSauce);
