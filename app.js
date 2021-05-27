@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 // on va utiliser bodyParser (attention déprécié! <- vu que c'est ce qui est sur le cours on va utiliser cette méthode en attendant)
 app.use(bodyParser.json());
 
-app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/images', express.static(path.join(__dirname, 'images'))); // <- la route qui gère les requêtes sur l'URL '/images'
 app.use('/api/sauces', saucesRoutes); // <- toutes les requêtes comprenant dans l'url 'api/sauces' déclenchent 'saucesRoutes' qui contient la logique de routage pour les sauces
 app.use('/api/auth', userRoutes); // <- toutes les requêtes comprenant dans l'url 'api/auth' déclenchent 'userRoutes' qui contient la logique de routage pour les user
 
