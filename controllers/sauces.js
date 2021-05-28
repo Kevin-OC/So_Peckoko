@@ -53,3 +53,26 @@ exports.getAllSauce = (req, res, next) => { // <- pour aller chercher l'ensemble
         .then(sauces => res.status(200).json(sauces)) // <- renvoie de toutes les sauces en réponse
         .catch(error => res.status(400).json({ error })); // <- gestion d'erreur
 };
+
+// gestion des likes et des dislikes
+exports.likeSauce = (req, res, next) => {
+  console.log({ _id: req.params.id });
+  console.log({ likes: req.body.like });
+  console.log({ userId: req.body.userId });
+}
+
+
+/*
+
+Corps de la demande => { userId: Chaîne, j'aime: Nombre }
+Type de réponse attendue => { message: Chaîne }
+
+Définit le statut "j'aime" pour userID fourni.
+Si j'aime = 1, l'utilisateur aime la sauce.
+Si j'aime = 0, l'utilisateur annule ce qu'il aime ou ce qu'il n'aime pas.
+Si j'aime = -1, l'utilisateur n'aime pas la sauce.
+L'identifiant de l'utilisateur doit être ajouté ou supprimé du tableau approprié,
+en gardant une trace de ses préférences et en l'empêchant d'aimer ou de ne pas aimer la même sauce plusieurs fois.
+Nombre total de "j'aime" et de "je n'aime pas" à mettre à jour avec chaque "j'aime".
+
+*/
