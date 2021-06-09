@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = (req,res,next) => {
     const token = req.headers.authorization.split(' ')[1]; // <- notre token (le 2ème élement de ce tableau)
-    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // <- on le décode
+    const decodedToken = jwt.verify(token, process.env.TOKEN); // <- on le décode
     const userId = decodedToken.userId; // <- on attribue ce token décodé à userId
     Sauce.findOne({ _id: req.params.id }) // <- on va chercher la sauce en fonction de l'url
         .then(sauce => {

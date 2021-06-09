@@ -35,7 +35,5 @@ app.use('/images', express.static(path.join(__dirname, 'images'))); // <- la rou
 app.use('/api/sauces', saucesRoutes); // <- toutes les requêtes comprenant dans l'url 'api/sauces' déclenchent 'saucesRoutes' qui contient la logique de routage pour les sauces
 app.use('/api/auth', userRoutes); // <- toutes les requêtes comprenant dans l'url 'api/auth' déclenchent 'userRoutes' qui contient la logique de routage pour les user
 
-console.log(process.env.SECRET);
-
 // ici on exporte notre code contenu dans ce fichier vers les modules (afin de pouvoir être importé par 'server.js' ensuite)
 module.exports = app;
