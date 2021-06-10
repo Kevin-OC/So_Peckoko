@@ -16,6 +16,17 @@ exports.createSauce = (req, res, next) => {
 
 // modification d'une sauce via la méthode 'updateOne()'
 exports.modifySauce = (req, res, next) => {
+    if (req.file) {
+      Sauce.findOne({ _id: req.params.id })
+      .then(sauce => {
+        const oldImage = sauce.imageUrl.split('/images/')[1];
+        fs.unlink(`images/${oldImage}`, (err) => {
+          if (err) throw err;
+          console.log('ancienne photo effacée');
+        })
+      })
+      .catch(error => res.status(400).json({ error }));
+    }
     const sauceObject = req.file ?
     {
       ...JSON.parse(req.body.sauce),
