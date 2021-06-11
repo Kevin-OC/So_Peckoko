@@ -14,7 +14,7 @@ require('dotenv').config();
 app.use(helmet());
 
 // connection de mongoose avec MongoDB Atlas
-mongoose.connect('mongodb+srv://Kevin:Mongodb18@realmcluster.wpjgk.mongodb.net/projet6DataBase?retryWrites=true&w=majority', 
+mongoose.connect('mongodb+srv://' + process.env.PSEUDO_MDP_CLUSTER + process.env.DATABASE + '?retryWrites=true&w=majority', 
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
