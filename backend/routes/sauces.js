@@ -1,8 +1,11 @@
+// imports
 const express = require('express');
 const router = express.Router();
-const saucesCtrl = require('../controllers/sauces'); // <- la logique métier des sauces se trouve dans ce fichier
+// la logique métier des fonctions concernant les sauces se trouve dans le fichier ci-dessous
+const saucesCtrl = require('../controllers/sauces');
+// ci-dessous les middlewares nécessaires
 const auth = require('../middleware/auth');
-const multer = require('../middleware/multer-config'); // <- logique de gestion des uploads
+const multer = require('../middleware/multer-config');
 const isowner = require('../middleware/isowner');
  
 // les ':' indiquent que cette requête est dynamique
@@ -13,4 +16,5 @@ router.get('/:id', auth, saucesCtrl.getOneSauce);
 router.get('/', auth, saucesCtrl.getAllSauce);
 router.post("/:id/like", auth, saucesCtrl.likeSauce);
 
+// export
 module.exports = router;

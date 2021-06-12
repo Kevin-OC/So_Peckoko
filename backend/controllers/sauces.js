@@ -16,11 +16,11 @@ exports.createSauce = (req, res, next) => {
 
 // modification d'une sauce via la méthode 'updateOne()'
 exports.modifySauce = (req, res, next) => {
-    if (req.file) {
+    if (req.file) { // <- si il y a une nouvelle image
       Sauce.findOne({ _id: req.params.id })
       .then(sauce => {
         const oldImage = sauce.imageUrl.split('/images/')[1];
-        fs.unlink(`images/${oldImage}`, (err) => {
+        fs.unlink(`images/${oldImage}`, (err) => { // <- on efface l'ancienne image
           if (err) throw err;
           console.log('ancienne photo effacée');
         })
@@ -29,10 +29,10 @@ exports.modifySauce = (req, res, next) => {
     }
     const sauceObject = req.file ?
     {
-      ...JSON.parse(req.body.sauce),
-      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+      ...JSON.parse(req.body.sauce), 
+      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` // <- ajout de la nouvelle image
     } : { ...req.body };
-    Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
+    Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id }) // <- update avec les nouvelles valeurs
         .then(() => res.status(200).json({ message: 'Sauce modifiée!'}))
         .catch(error => res.status(400).json({ error }));
 };
